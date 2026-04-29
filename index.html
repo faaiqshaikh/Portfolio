@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammedfaiq Shaikh — Portfolio Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<style></style>
+:root {
+  --black:   #000000;
+  --ink:     #080808;
+  --surface: #0d0d0d;
+  --border:  rgba(255,255,255,0.07);
+  --muted:   rgba(255,255,255,0.28);
+  --body:    rgba(255,255,255,0.62);
+  --white:   #ffffff;
+  --gold:    #c9a84c;
+  --gold2:   #e8c97a;
+  --red:     #c0392b;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Syne', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* === CUSTOM CURSOR === */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.25s ease, height 0.25s ease, background 0.25s ease;
+  mix-blend-mode: difference;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.25s ease, height 0.25s ease, opacity 0.25s ease;
+  opacity: 0.5;
+}
+
+/* === SCROLL PROGRESS === */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  z-index: 1000;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* === NAV === */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  padding: 24px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
+  backdrop-filter: blur(0px);
+  transition: backdrop-filter 0.3s, background 0.3s;
+}
+nav.scrolled {
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* === SCROLL REVEAL === */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
+
+/* ================================================
+   SECTION 1 — HERO
+   ================================================ */
+#hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1800&q=90&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.08);
+  transition: transform 8s ease-out;
+  filter: grayscale(20%);
+}
+.hero-bg.loaded { transform: scale(1); }
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.6) 50%,
+    rgba(0,0,0,0.95) 100%
+  );
+}
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 60px 80px;
+  width: 100%;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+}
+.hero-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(64px, 9vw, 120px);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+.hero-name .accent { color: var(--gold); font-style: italic; }
+.hero-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--body);
+  max-width: 460px;
+  line-height: 1.75;
+  margin-bottom: 40px;
+  font-family: 'Syne', sans-serif;
+}
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold);
+  color: #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+  cursor: none;
+}
+.btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+.available-dot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.dot-pulse {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4caf7d;
+  box-shadow: 0 0 0 0 rgba(76,175,125,0.6);
+  animation: dotPulse 1.8s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0% { box-shadow: 0 0 0 0 rgba(76,175,125,0.6); }
+  70% { box-shadow: 0 0 0 8px rgba(76,175,125,0); }
+  100% { box-shadow: 0 0 0 0 rgba(76,175,125,0); }
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  right: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.35;
+  z-index: 2;
+}
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--white));
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%, 100% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+}
+.scroll-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+/* ================================================
+   SECTION 2 — SERVICES
+   ================================================ */
+#services {
+  background: var(--black);
+  padding: 120px 60px;
+  border-top: 1px solid var(--border);
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 70px;
+}
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+.service-card {
+  background: var(--black);
+  padding: 44px 36px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.4s ease;
+}
+.service-card:hover::before { width: 100%; }
+.service-card:hover { background: var(--surface); }
+.service-icon {
+  font-size: 28px;
+  margin-bottom: 20px;
+  display: block;
+}
+.service-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+.service-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  font-weight: 400;
+}
+.service-tag {
+  display: inline-block;
+  margin-top: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 4px 10px;
+}
+
+/* ================================================
+   SECTION 3 — EXPERIENCE (full bleed bg)
+   ================================================ */
+#experience {
+  position: relative;
+  padding: 140px 60px;
+  overflow: hidden;
+}
+.experience-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1555066931-4365d14431b9?w=1800&q=80&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  filter: grayscale(60%) brightness(0.2);
+}
+.experience-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.97) 50%, rgba(0,0,0,0.7) 100%);
+}
+.experience-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.exp-list { margin-top: 0; }
+.exp-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.exp-item:first-child { padding-top: 0; }
+.exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+.exp-meta {}
+.exp-period {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.exp-type {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.exp-body {}
+.exp-role {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.exp-company {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.exp-bullets {
+  list-style: none;
+}
+.exp-bullets li {
+  font-size: 13.5px;
+  color: var(--body);
+  line-height: 1.75;
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+.exp-bullets li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 11px;
+}
+
+/* ================================================
+   SECTION 4 — PROJECTS
+   ================================================ */
+#projects {
+  background: var(--black);
+  padding: 140px 60px;
+}
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  margin-top: 0;
+}
+.project-card {
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.project-card:hover { background: var(--surface); }
+.project-img-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 260px;
+}
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(60%) brightness(0.45) contrast(1.1);
+  transition: filter 0.6s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.project-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 30%,
+    rgba(0,0,0,0.5) 70%,
+    rgba(0,0,0,0.92) 100%
+  );
+  z-index: 1;
+}
+.project-img-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, transparent 60%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.project-card:hover .project-img-wrap::before { opacity: 1; }
+.project-card:hover .project-img {
+  filter: grayscale(10%) brightness(0.6) contrast(1.05);
+  transform: scale(1.06);
+}
+.project-body {
+  padding: 32px 36px;
+}
+.project-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.project-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.project-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.stack-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 4px 9px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.project-card:hover .stack-chip {
+  border-color: rgba(201,168,76,0.3);
+  color: var(--gold);
+}
+
+/* ================================================
+   SECTION 5 — SKILLS (with bg)
+   ================================================ */
+#skills {
+  position: relative;
+  padding: 140px 60px;
+  overflow: hidden;
+}
+.skills-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=80&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  filter: grayscale(70%) brightness(0.12);
+}
+.skills-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+}
+.skills-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px 80px;
+  margin-top: 0;
+}
+.skill-category-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.skill-row {
+  margin-bottom: 20px;
+}
+.skill-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 7px;
+}
+.skill-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+.skill-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+}
+.skill-track {
+  height: 1px;
+  background: var(--border);
+  position: relative;
+}
+.skill-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  position: absolute;
+  top: 0; left: 0;
+  width: 0;
+  transition: width 1.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* === TOOLS === */
+.tools-section {
+  margin-top: 60px;
+  padding-top: 60px;
+  border-top: 1px solid var(--border);
+}
+.tools-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.tools-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tool-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--body);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  cursor: default;
+}
+.tool-tag:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(201,168,76,0.05);
+}
+
+/* ================================================
+   SECTION 6 — STATS
+   ================================================ */
+#stats {
+  background: var(--black);
+  padding: 100px 60px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+.stat-block {
+  background: var(--black);
+  padding: 48px 36px;
+  text-align: center;
+  transition: background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.stat-block::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; right: 50%;
+  height: 1px;
+  background: var(--gold);
+  transition: left 0.4s ease, right 0.4s ease;
+}
+.stat-block:hover::after { left: 0; right: 0; }
+.stat-block:hover { background: var(--surface); }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-num span { color: var(--gold); }
+.stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ================================================
+   SECTION 7 — EDUCATION + CONTACT
+   ================================================ */
+#about {
+  background: var(--black);
+  padding: 140px 60px;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+.edu-block {
+  padding: 36px;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.edu-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold);
+}
+.edu-block:hover { border-color: rgba(201,168,76,0.4); }
+.edu-degree {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.edu-school {
+  font-size: 13px;
+  color: var(--body);
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+.edu-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+}
+
+.contact-block { }
+.contact-intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 36px;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.contact-item:hover { border-color: rgba(201,168,76,0.4); }
+.contact-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+.contact-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--body);
+  letter-spacing: 0.06em;
+}
+.contact-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+/* === FOOTER === */
+footer {
+  background: var(--black);
+  border-top: 1px solid var(--border);
+  padding: 32px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.footer-name span { color: var(--gold); }
+.footer-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* === PRINT === */
+@media print {
+  nav, .cursor, .cursor-ring, .progress-bar, .hero-scroll-hint { display: none !important; }
+  #hero { height: auto; padding: 80px 40px; }
+  .hero-bg { background-attachment: scroll; }
+  .experience-bg, .skills-bg { background-attachment: scroll; }
+  body { cursor: auto; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 20px 24px; }
+  .nav-links { display: none; }
+  #hero, #services, #experience, #projects, #skills, #stats, #about { padding-left: 24px; padding-right: 24px; }
+  .hero-content { padding: 0 24px 60px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .exp-item { grid-template-columns: 1fr; gap: 12px; }
+  footer { flex-direction: column; gap: 12px; text-align: center; }
+  .hero-scroll-hint { display: none; }
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Scroll Progress -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Mohammedfaiq <span>Shaikh</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">Frontend Developer · UI Designer · Bug Fixer</div>
+    <h1 class="hero-name reveal delay-1">
+      Mohammed<span class="accent">faiq</span><br>Shaikh
+    </h1>
+    <p class="hero-desc reveal delay-2">
+      I craft pixel-perfect landing pages, memorable brand identities, and eliminate stubborn HTML/CSS bugs — delivered fast, clean, and client-ready.
+    </p>
+    <div class="hero-cta reveal delay-3">
+      <a href="#projects" class="btn-primary">View My Work ↓</a>
+      <div class="available-dot">
+        <span class="dot-pulse"></span>
+        Available for freelance
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-label">Scroll</span>
+  </div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section id="services">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">What I Do</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal delay-1">
+      <span class="service-icon">🖥</span>
+      <div class="service-name">Landing Page Design</div>
+      <div class="service-desc">Conversion-focused, responsive landing pages built from scratch or from your Figma file — pixel-perfect on every screen size.</div>
+      <div class="service-tag">HTML · CSS · JS</div>
+    </div>
+    <div class="service-card reveal delay-2">
+      <span class="service-icon">✦</span>
+      <div class="service-name">Logo & Brand Identity</div>
+      <div class="service-desc">Timeless logos and complete brand kits — wordmark, icon, color palette, and typography guide — delivered in editable vector formats.</div>
+      <div class="service-tag">Figma · Adobe XD</div>
+    </div>
+    <div class="service-card reveal delay-3">
+      <span class="service-icon">🔧</span>
+      <div class="service-name">HTML/CSS Bug Fixing</div>
+      <div class="service-desc">Cross-browser layout issues, broken flexbox, z-index chaos, responsive failures — I find the root cause and fix it cleanly.</div>
+      <div class="service-tag">Debugging · QA</div>
+    </div>
+    <div class="service-card reveal delay-2">
+      <span class="service-icon">◈</span>
+      <div class="service-name">UI/UX Prototyping</div>
+      <div class="service-desc">High-fidelity interactive prototypes in Figma or Adobe XD — ready for developer handoff or client presentations.</div>
+      <div class="service-tag">Figma · XD</div>
+    </div>
+    <div class="service-card reveal delay-3">
+      <span class="service-icon">📱</span>
+      <div class="service-name">Responsive Layouts</div>
+      <div class="service-desc">Mobile-first CSS architecture using Grid, Flexbox, and modern techniques — flawless from 320px to 4K displays.</div>
+      <div class="service-tag">CSS · Tailwind</div>
+    </div>
+    <div class="service-card reveal delay-4">
+      <span class="service-icon">⚡</span>
+      <div class="service-name">Performance Optimization</div>
+      <div class="service-desc">CSS refactoring, asset optimization, and layout improvements to achieve 90+ Google PageSpeed scores on existing sites.</div>
+      <div class="service-tag">Perf · Audit</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section id="experience">
+  <div class="experience-bg"></div>
+  <div class="experience-overlay"></div>
+  <div class="experience-content">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-meta reveal-left">
+          <div class="exp-period">2022 — Present</div>
+          <div class="exp-type">Freelance · Remote</div>
+        </div>
+        <div class="exp-body reveal-right">
+          <div class="exp-role">Freelance Web Designer & Developer</div>
+          <div class="exp-company">Independent · Fiverr & Direct Clients</div>
+          <ul class="exp-bullets">
+            <li>Designed and developed 15+ responsive landing pages for startups, local businesses, and personal brands — achieving average 25% conversion rate improvements.</li>
+            <li>Resolved 50+ HTML/CSS bugs and cross-browser compatibility issues with 100% client satisfaction and on-time delivery record.</li>
+            <li>Created complete brand identity packages for 10+ businesses using Figma and Adobe XD — logo, palette, and typography — from concept to final files.</li>
+            <li>Delivered pixel-perfect HTML/CSS builds from Figma mockups for developer handoff across 8+ projects.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta reveal-left delay-1">
+          <div class="exp-period">Jan — Aug 2022</div>
+          <div class="exp-type">Internship · Mumbai</div>
+        </div>
+        <div class="exp-body reveal-right delay-1">
+          <div class="exp-role">Junior UI/UX Designer</div>
+          <div class="exp-company">Web Design Agency · Mumbai</div>
+          <ul class="exp-bullets">
+            <li>Produced high-fidelity Figma prototypes for 8 client projects across e-commerce, hospitality, and SaaS verticals.</li>
+            <li>Performed front-end QA across 20+ pages — resolving layout breaks, visual regressions, and responsive failures before client delivery.</li>
+            <li>Restructured CSS specificity hierarchies on mobile pages, reducing visual jitter and improving perceived performance.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta reveal-left delay-2">
+          <div class="exp-period">2021 — 2022</div>
+          <div class="exp-type">Academic · Mumbai</div>
+        </div>
+        <div class="exp-body reveal-right delay-2">
+          <div class="exp-role">CS Final Year Project Lead</div>
+          <div class="exp-company">St. Xavier's College · Mumbai</div>
+          <ul class="exp-bullets">
+            <li>Led a 4-member team developing a fully responsive college event portal in HTML, CSS, and JavaScript — awarded highest grade in the department.</li>
+            <li>Designed all UI screens in Figma and translated them to code with zero design drift, earning departmental recognition for polish and code quality.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal delay-1">
+      <div class="project-img-wrap">
+        <img class="project-img" src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=95&auto=format&fit=crop" alt="LuxeStay Hotel" loading="lazy">
+      </div>
+      <div class="project-body">
+        <div class="project-label">Design + Development</div>
+        <div class="project-name">LuxeStay — Hotel Landing Page</div>
+        <div class="project-desc">Responsive luxury hotel landing page with smooth scroll animations, CSS-only image carousel, and booking inquiry form. Client saw 40% increase in direct enquiries within 3 weeks.</div>
+        <div class="project-stack">
+          <div class="stack-chip">HTML5</div>
+          <div class="stack-chip">CSS3</div>
+          <div class="stack-chip">JavaScript</div>
+          <div class="stack-chip">Figma</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal delay-2">
+      <div class="project-img-wrap">
+        <img class="project-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=95&auto=format&fit=crop" alt="BrewLab Coffee" loading="lazy">
+      </div>
+      <div class="project-body">
+        <div class="project-label">Brand Identity</div>
+        <div class="project-name">BrewLab — Coffee Brand Identity</div>
+        <div class="project-desc">Complete brand identity for an artisan coffee startup — wordmark, icon, color palette, and typography guide. 4 concepts in 48 hours, vector files on delivery.</div>
+        <div class="project-stack">
+          <div class="stack-chip">Adobe XD</div>
+          <div class="stack-chip">Figma</div>
+          <div class="stack-chip">Brand Design</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal delay-3">
+      <div class="project-img-wrap">
+        <img class="project-img" src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=900&q=95&auto=format&fit=crop" alt="Bug Fix Project" loading="lazy">
+      </div>
+      <div class="project-body">
+        <div class="project-label">CSS Debugging</div>
+        <div class="project-name">BugSquash — E-commerce CSS Overhaul</div>
+        <div class="project-desc">Fixed a visually broken product page on Safari and Firefox — overlapping elements, broken flexbox, and z-index conflicts. Audited 800+ lines, fixed 12 conflicts, zero HTML changes.</div>
+        <div class="project-stack">
+          <div class="stack-chip">CSS Debugging</div>
+          <div class="stack-chip">Cross-browser</div>
+          <div class="stack-chip">Flexbox</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card reveal delay-4">
+      <div class="project-img-wrap">
+        <img class="project-img" src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=900&q=95&auto=format&fit=crop" alt="FitFlow SaaS" loading="lazy">
+      </div>
+      <div class="project-body">
+        <div class="project-label">Design + Development</div>
+        <div class="project-name">FitFlow — SaaS App Landing Page</div>
+        <div class="project-desc">Modern SaaS landing page designed in Figma and built in HTML/CSS/JS with animated feature sections and responsive pricing table. Achieved 95+ Google PageSpeed on mobile.</div>
+        <div class="project-stack">
+          <div class="stack-chip">Figma</div>
+          <div class="stack-chip">HTML/CSS</div>
+          <div class="stack-chip">JavaScript</div>
+          <div class="stack-chip">Tailwind</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== SKILLS ===================== -->
+<section id="skills">
+  <div class="skills-bg"></div>
+  <div class="skills-overlay"></div>
+  <div class="skills-content">
+    <div class="section-header reveal">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Skills & Tools</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="reveal delay-1">
+        <div class="skill-category-name">Frontend Development</div>
+        <div class="skill-row">
+          <div class="skill-info"><span class="skill-name">HTML5 / CSS3</span><span class="skill-pct">97%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="97"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-info"><span class="skill-name">JavaScript (ES6+)</span><span class="skill-pct">82%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-info"><span class="skill-name">Responsive Design</span><span class="skill-pct">95%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-info"><span class="skill-name">CSS Animations</span><span class="skill-pct">88%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-info"><span class="skill-name">Tailwind CSS</span><span class="skill-pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="skill-category-name">Design</div>
+        <div class="skill-row">
+          <div class="skill-info"><span class="skill-name">Figma</span><span class="skill-pct">91%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="91"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-info"><span class="skill-name">Adobe XD</span><span class="skill-pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-info"><span class="skill-name">Logo & Brand Design</span><span class="skill-pct">87%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="87"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-info"><span class="skill-name">UI/UX Prototyping</span><span class="skill-pct">89%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="89"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-info"><span class="skill-name">CSS Debugging / QA</span><span class="skill-pct">93%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="93"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="tools-section reveal delay-3">
+      <div class="tools-label">Tools & Environment</div>
+      <div class="tools-list">
+        <div class="tool-tag">VS Code</div>
+        <div class="tool-tag">Git & GitHub</div>
+        <div class="tool-tag">Figma</div>
+        <div class="tool-tag">Adobe XD</div>
+        <div class="tool-tag">Chrome DevTools</div>
+        <div class="tool-tag">CSS Grid</div>
+        <div class="tool-tag">Flexbox</div>
+        <div class="tool-tag">Bootstrap 5</div>
+        <div class="tool-tag">Tailwind CSS</div>
+        <div class="tool-tag">Google PageSpeed</div>
+        <div class="tool-tag">Responsive Testing</div>
+        <div class="tool-tag">BrowserStack</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS ===================== -->
+<section id="stats">
+  <div class="stats-row">
+    <div class="stat-block reveal delay-1">
+      <div class="stat-num">30<span>+</span></div>
+      <div class="stat-label">Projects Delivered</div>
+    </div>
+    <div class="stat-block reveal delay-2">
+      <div class="stat-num">25<span>+</span></div>
+      <div class="stat-label">Happy Clients</div>
+    </div>
+    <div class="stat-block reveal delay-3">
+      <div class="stat-num">3<span>+</span></div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-block reveal delay-4">
+      <div class="stat-num">100<span>%</span></div>
+      <div class="stat-label">On-time Delivery</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT / CONTACT ===================== -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Education & Contact</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="reveal-left">
+      <div style="margin-bottom: 32px;">
+        <div class="skill-category-name" style="margin-bottom: 20px;">Education</div>
+        <div class="edu-block">
+          <div class="edu-degree">Bachelor of Computer Applications</div>
+          <div class="edu-school">St. Xavier's College, Mumbai</div>
+          <div class="edu-year">2019 — 2022</div>
+        </div>
+      </div>
+      <div>
+        <div class="skill-category-name" style="margin-bottom: 20px;">Languages</div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <div class="tool-tag">English</div>
+          <div class="tool-tag">Hindi</div>
+          <div class="tool-tag">Urdu</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <p class="contact-intro">"Ready to make your next project unforgettable."</p>
+      <div class="contact-item">
+        <span class="contact-icon">📧</span>
+        <span class="contact-value">mohammedfaiq@email.com</span>
+        <span class="contact-label">Email</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">🔗</span>
+        <span class="contact-value">fiverr.com/mohammedfaiq</span>
+        <span class="contact-label">Fiverr</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <span class="contact-value">Mumbai, India</span>
+        <span class="contact-label">Location</span>
+      </div>
+      <div class="contact-item">
+        <span class="contact-icon">⏰</span>
+        <span class="contact-value">IST (UTC +5:30)</span>
+        <span class="contact-label">Timezone</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Mohammed<span>faiq</span> Shaikh</div>
+  <div class="footer-note">BCA · St. Xavier's College · Mumbai · 2022</div>
+  <div class="footer-note">Open to long-term collaborations</div>
+</footer>
+
+<script>
+// === CURSOR ===
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+document.querySelectorAll('a, button, .service-card, .project-card, .stat-block, .tool-tag').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '14px'; cursor.style.height = '14px';
+    ring.style.width = '52px'; ring.style.height = '52px'; ring.style.opacity = '0.8';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '8px'; cursor.style.height = '8px';
+    ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '0.5';
+  });
+});
+
+// === SCROLL PROGRESS ===
+const progressBar = document.getElementById('progressBar');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  progressBar.style.width = pct + '%';
+});
+
+// === NAVBAR SCROLL ===
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// === HERO BG ZOOM ===
+const heroBg = document.getElementById('heroBg');
+setTimeout(() => heroBg.classList.add('loaded'), 100);
+
+// === SCROLL REVEAL ===
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+// === SKILL BARS ===
+const skillFills = document.querySelectorAll('.skill-fill');
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const w = entry.target.getAttribute('data-width');
+      entry.target.style.width = w + '%';
+      skillObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+skillFills.forEach(el => skillObserver.observe(el));
+
+// === PARALLAX ON HERO ===
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  if (scrolled < window.innerHeight) {
+    heroBg.style.transform = `scale(1) translateY(${scrolled * 0.25}px)`;
+  }
+});
+</script>
+</body>
+</html>
